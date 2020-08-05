@@ -39,7 +39,7 @@ class CascadePID(KettleController):
         super(KettleController, self).stop()
 
     def run(self):
-        if not isinstance(self.a_inner_sensor, unicode):
+        if not isinstance(self.a_inner_sensor, str):
             self.notify("PID Error", "An inner sensor must be selected", timeout=None, type="danger")
             raise UserWarning("PID - An inner sensor must be selected")
 
@@ -101,8 +101,8 @@ class CascadePID(KettleController):
             # Print loop details
             cbpi.app.logger.info("[%s] Outer loop PID target/actual/output/integrator: %s/%s/%s/%s" % (waketime, outer_target_value, outer_current_value, inner_target_value, round(outer_pid.integrator, 2)))
             cbpi.app.logger.info("[%s] Inner loop PID target/actual/output/integrator: %s/%s/%s/%s" % (waketime, inner_target_value, inner_current_value, inner_output, round(inner_pid.integrator, 2)))
-            print("[%s] Outer loop PID target/actual/output/integrator: %s/%s/%s/%s" % (waketime, outer_target_value, outer_current_value, inner_target_value, round(outer_pid.integrator, 2)))
-            print("[%s] Inner loop PID target/actual/output/integrator: %s/%s/%s/%s" % (waketime, inner_target_value, inner_current_value, inner_output, round(inner_pid.integrator, 2)))
+            print(("[%s] Outer loop PID target/actual/output/integrator: %s/%s/%s/%s" % (waketime, outer_target_value, outer_current_value, inner_target_value, round(outer_pid.integrator, 2))))
+            print(("[%s] Inner loop PID target/actual/output/integrator: %s/%s/%s/%s" % (waketime, inner_target_value, inner_current_value, inner_output, round(inner_pid.integrator, 2))))
 
             # Sleep until update required again
             if waketime <= time.time() + 0.25:
@@ -168,7 +168,7 @@ class AdvancedPID(KettleController):
 
             # Log details
             cbpi.app.logger.info("[%s] PID target/actual/output/integrator: %s/%s/%s/%s" % (waketime, target_value, current_value, output, round(SinglePID.integrator, 2)))
-            print("[%s] PID target/actual/output/integrator: %s/%s/%s/%s" % (waketime, target_value, current_value, output, round(SinglePID.integrator, 2)))
+            print(("[%s] PID target/actual/output/integrator: %s/%s/%s/%s" % (waketime, target_value, current_value, output, round(SinglePID.integrator, 2))))
 
             # Sleep until update required again
             if waketime <= time.time() + 0.25:
@@ -266,15 +266,15 @@ class CascadeHysteresis(KettleController):
                 if inner_hysteresis.update(inner_current_value, inner_target_value):
                     self.heater_on(100)
                     cbpi.app.logger.info("[%s] Inner hysteresis actor stays ON" % (waketime))
-                    print("[%s] Innner hysteresis actor stays ON" % (waketime))
+                    print(("[%s] Innner hysteresis actor stays ON" % (waketime)))
                 else:
                     self.heater_off()
                     cbpi.app.logger.info("[%s] Inner hysteresis actor stays OFF" % (waketime))
-                    print("[%s] Innner hysteresis actor stays OFF" % (waketime))
+                    print(("[%s] Innner hysteresis actor stays OFF" % (waketime)))
 
                 # Print loop details
                 cbpi.app.logger.info("[%s] Outer loop PID target/actual/output/integrator: %s/%s/%s/%s" % (waketime, outer_target_value, outer_current_value, inner_target_value, round(outer_pid.integrator, 2)))
-                print("[%s] Outer loop PID target/actual/output/integrator: %s/%s/%s/%s" % (waketime, outer_target_value, outer_current_value, inner_target_value, round(outer_pid.integrator, 2)))
+                print(("[%s] Outer loop PID target/actual/output/integrator: %s/%s/%s/%s" % (waketime, outer_target_value, outer_current_value, inner_target_value, round(outer_pid.integrator, 2))))
                     
                 # Sleep until update required again
                 if waketime <= time.time() + 0.25:
@@ -338,11 +338,11 @@ class AdvancedHysteresis(KettleController):
                 if hysteresis_on.update(current_value, target_value):
                     self.heater_on(100)
                     cbpi.app.logger.info("[%s] Hysteresis actor stays ON" % (waketime))
-                    print("[%s] Hysteresis actor stays ON" % (waketime))
+                    print(("[%s] Hysteresis actor stays ON" % (waketime)))
                 else:
                     self.heater_off()
                     cbpi.app.logger.info("[%s] Hysteresis actor stays OFF" % (waketime))
-                    print("[%s] Hysteresis actor stays OFF" % (waketime))
+                    print(("[%s] Hysteresis actor stays OFF" % (waketime)))
                 
                 # Sleep until update required again
                 if waketime <= time.time() + 0.25:
